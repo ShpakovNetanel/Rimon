@@ -4,11 +4,30 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 2000;
-const DATA_FILE = path.join(__dirname, 'todos.json');
+const PORT = process.env.PORT || 2000;
+const IS_VERCEL = Boolean(process.env.VERCEL);
+const DATA_DIR = IS_VERCEL ? '/tmp' : __dirname;
+const DATA_FILE = path.join(DATA_DIR, 'todos.json');
+const CHAT_FILE = path.join(DATA_DIR, 'chat.json');
+const SOURCE_TODOS_FILE = path.join(__dirname, 'todos.json');
+const SOURCE_CHAT_FILE = path.join(__dirname, 'chat.json');
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// On Vercel, express.static() is ignored. Redirect "/" to a CDN-served static file.
+app.get('/', (req, res) => {
+    res.redirect('/index.html');
+});
+
+const ensureSeedData = (sourceFile, runtimeFile) => {
+    if (IS_VERCEL && !fs.existsSync(runtimeFile) && fs.existsSync(sourceFile)) {
+        fs.copyFileSync(sourceFile, runtimeFile);
+    }
+};
+
+ensureSeedData(SOURCE_TODOS_FILE, DATA_FILE);
+ensureSeedData(SOURCE_CHAT_FILE, CHAT_FILE);
 
 // Helper to read data
 const readData = () => {
@@ -35,9 +54,6 @@ app.post('/api/todos', (req, res) => {
     writeData(todos);
     res.status(200).send('Saved');
 });
-
-// Chat file path
-const CHAT_FILE = path.join(__dirname, 'chat.json');
 
 // Helper to read chat data
 const readChatData = () => {
@@ -70,6 +86,10 @@ app.post('/api/chat', (req, res) => {
     res.status(200).send('Message sent');
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running heavily on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running heavily on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
