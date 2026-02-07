@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הפתעה לולנטיין!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Valentine Question Overlay -->
+    <div id="valentine-overlay">
+        <div class="valentine-content">
+            <h1>האם תהיי הולנטיין שלי?</h1>
+            <div class="buttons">
+                <button id="yes-btn">כן!</button>
+                <button id="no-btn">לא 😢</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden initially) -->
+    <div id="main-content" class="hidden">
+        <div class="container">
+            <h1></h1>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="countdowns">שעונים ⏳</button>
+                <button class="tab-btn" data-tab="todos">משימות 📝</button>
+                <button class="tab-btn" data-tab="chat">צ'אט 💬</button>
+            </nav>
+
+            <div id="tab-countdowns" class="tab-content active">
+                <div class="countdowns">
+                    <div class="timer-card">
+                        <h2>ולנטיין 2026</h2>
+                        <div id="timer-valentine" class="timer"></div>
+                        <p>14.2.2026</p>
+                    </div>
+                    <div class="timer-card">
+                        <h2>שנה וחצי ביחד</h2>
+                        <div id="timer-1-5-years" class="timer"></div>
+                        <p>26.2.2026</p>
+                    </div>
+                    <div class="timer-card">
+                        <h2>שנתיים ביחד</h2>
+                        <div id="timer-2-years" class="timer"></div>
+                        <p>26.8.2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-todos" class="tab-content hidden">
+                <div class="todo-section">
+                    <h2>הרשימה הזוגית שלנו ✨</h2>
+                    <div class="add-todo">
+                        <input type="text" id="new-todo" placeholder="הוסיפי משימה חדשה...">
+                        <button id="add-btn">הוספה</button>
+                    </div>
+                    <ul id="todo-list">
+                        <!-- Todos will be injected here -->
+                    </ul>
+                </div>
+            </div>
+
+            <div id="tab-chat" class="tab-content hidden">
+                <div class="chat-container">
+                    <!-- Login Screen -->
+                    <div id="chat-login" class="chat-section">
+                        <h2>מי את/ה? 💖</h2>
+                        <input type="text" id="chat-name-input" placeholder="הכניסו שם (רימון / נתנאל)">
+                        <button id="chat-login-btn">כניסה</button>
+                        <p id="login-error" class="error-msg hidden">שם לא מוכר, נסו שוב...</p>
+                    </div>
+
+                    <!-- Chat Interface -->
+                    <div id="chat-interface" class="chat-section hidden">
+                        <div class="chat-header">
+                            <h2 id="chat-user-display">שלום!</h2>
+                            <button id="chat-logout-btn" class="secondary-btn">יציאה</button>
+                        </div>
+                        <div id="chat-messages" class="messages-area">
+                            <!-- Messages will be injected here -->
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="כתבו הודעה...">
+                            <button id="chat-send-btn">➤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

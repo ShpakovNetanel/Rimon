@@ -1,0 +1,557 @@
+body {
+    font-family: 'Rubik', sans-serif;
+    background: linear-gradient(135deg, #1a0b2e, #4a1c40);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+h1,
+h2 {
+    color: #e0c3fc;
+    text-shadow: 0 0 10px #8a2be2;
+}
+
+/* Overlay */
+#valentine-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.valentine-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 2px solid #8a2be2;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    position: relative;
+    /* Context for absolute positioning of No button if needed */
+    height: 60px;
+    /* Reserve space */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#yes-btn {
+    background: #8a2be2;
+    color: white;
+    box-shadow: 0 0 15px #8a2be2;
+}
+
+#yes-btn:hover {
+    transform: scale(1.1);
+}
+
+#no-btn {
+    background: #444;
+    color: white;
+    position: relative;
+    /* Starts relative, becomes absolute on hover */
+}
+
+/* Main Content */
+.hidden {
+    display: none !important;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    min-height: 600px;
+    /* Prevent layout jump */
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.countdowns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.timer-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    min-width: 200px;
+    border: 1px solid #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #00ffff;
+}
+
+/* Todo List */
+.todo-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 40px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.add-todo {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#add-btn {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.6);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-item {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.todo-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(-5px);
+    border-color: rgba(138, 43, 226, 0.3);
+}
+
+.todo-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #00ffff;
+    border-radius: 50%;
+    margin-left: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.todo-item.completed .todo-checkbox {
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.todo-item.completed .todo-checkbox::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.todo-text {
+    flex-grow: 1;
+    text-align: right;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #ff4444;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    opacity: 0.7;
+    transition: all 0.2s;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+    background: rgba(255, 68, 68, 0.2);
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #8a2be2;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #8a2be2;
+    box-shadow: 0 0 15px #8a2be2;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        min-height: auto;
+        /* Allow flexible height on mobile */
+        padding: 10px 0;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+    }
+
+    #no-btn {
+        position: static;
+        /* Reset for initial layout, script handles fixed */
+        width: 100%;
+        max-width: 200px;
+    }
+
+    #yes-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .countdowns {
+        gap: 15px;
+    }
+
+    .timer-card {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .todo-section {
+        padding: 20px;
+    }
+
+    .add-todo {
+        flex-direction: column;
+        border-radius: 20px;
+    }
+
+    #add-btn {
+        width: 100%;
+    }
+
+    .file-input-wrapper {
+        width: 100%;
+    }
+
+    .tabs {
+        gap: 10px;
+    }
+
+    .tab-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Chat Styles */
+/* Chat Styles */
+.chat-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    height: 70vh;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#chat-interface {
+    justify-content: space-between;
+}
+
+.chat-header {
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #e0c3fc;
+}
+
+#chat-logout-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid white;
+    padding: 8px 18px;
+    font-size: 0.95rem;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#chat-logout-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.messages-area {
+    flex-grow: 1;
+    width: 100%;
+    padding: 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-sizing: border-box;
+}
+
+.message-bubble {
+    max-width: 75%;
+    padding: 12px 18px;
+    border-radius: 18px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* My messages (Left side in RTL) */
+.message-mine {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    align-self: flex-end;
+    border-bottom-left-radius: 2px;
+}
+
+/* Other messages (Right side in RTL) */
+.message-other {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    align-self: flex-start;
+    border-bottom-right-radius: 2px;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    opacity: 0.8;
+    text-align: right;
+    display: block;
+}
+
+.chat-input-area {
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#chat-send-btn {
+    background: #8a2be2;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+#chat-send-btn:hover {
+    transform: scale(1.1);
+}
+
+.error-msg {
+    color: #ff4444;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Chat Mobile Responsiveness */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 80vh;
+        /* Taller on mobile */
+        border-radius: 15px;
+    }
+
+    .chat-header {
+        padding: 15px;
+    }
+
+    .chat-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .messages-area {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .message-bubble {
+        max-width: 85%;
+        /* Wider bubbles on small screens */
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    .chat-input-area {
+        padding: 15px;
+    }
+
+    #chat-send-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+}
