@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    localStorage.clear()
     const noBtn = document.getElementById('no-btn');
     const yesBtn = document.getElementById('yes-btn');
     const overlay = document.getElementById('valentine-overlay');
